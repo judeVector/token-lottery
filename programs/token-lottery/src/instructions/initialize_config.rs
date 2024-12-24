@@ -18,7 +18,12 @@ pub struct Initialize<'info> {
     pub system_program: Program<'info, System>,
 }
 
-pub fn handler(ctx: Context<Initialize>, start: u64, end: u64, price: u64) -> Result<()> {
+pub fn handler_initialize_config(
+    ctx: Context<Initialize>,
+    start: u64,
+    end: u64,
+    price: u64,
+) -> Result<()> {
     ctx.accounts.token_lottery.set_inner(TokenLottery {
         winner: 0,
         winner_claimed: false,
