@@ -6,6 +6,7 @@ pub mod state;
 use anchor_lang::prelude::*;
 
 pub use constants::*;
+pub use error::*;
 pub use instructions::*;
 pub use state::*;
 
@@ -26,5 +27,9 @@ pub mod token_lottery {
 
     pub fn initialize_lottery(ctx: Context<InitializeLottery>) -> Result<()> {
         initialize_lottery::handler_initialize_lottery(ctx)
+    }
+
+    pub fn buy_ticket(ctx: Context<BuyTicket>) -> Result<()> {
+        buy_ticket::handler_buy_ticket(ctx)
     }
 }

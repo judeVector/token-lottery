@@ -30,7 +30,7 @@ pub fn handler_initialize_config(
         start_time: start,
         end_time: end,
         lottery_pot_amount: 0,
-        total_ticket: 0,
+        total_tickets: 0,
         ticket_price: price,
         authority: ctx.accounts.signer.key(),
         randomness_account: Pubkey::default(),
