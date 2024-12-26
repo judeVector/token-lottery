@@ -1,7 +1,9 @@
 use anchor_lang::prelude::*;
 
 #[error_code]
-pub enum ErrorCode {
+pub enum CustomError {
     #[msg("Custom error message")]
     CustomError,
+    #[msg("Lottery not open")]
+    LotteryNotOpen,
 }
