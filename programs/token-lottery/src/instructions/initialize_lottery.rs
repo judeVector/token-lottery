@@ -1,6 +1,5 @@
 use anchor_lang::prelude::*;
 use anchor_spl::{
-    associated_token::AssociatedToken,
     metadata::{
         create_master_edition_v3, create_metadata_accounts_v3,
         mpl_token_metadata::types::{CollectionDetails, Creator, DataV2},
@@ -56,7 +55,6 @@ pub struct InitializeLottery<'info> {
 
     pub rent: Sysvar<'info, Rent>,
     pub token_metadata_program: Program<'info, Metadata>,
-    pub associated_token_program: Program<'info, AssociatedToken>,
     pub token_program: Interface<'info, TokenInterface>,
     pub system_program: Program<'info, System>,
 }
