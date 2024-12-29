@@ -36,4 +36,8 @@ pub mod token_lottery {
     pub fn commit_randomness(ctx: Context<CommitRandomness>) -> Result<()> {
         commit_randomness::handler_commit_randomness(ctx)
     }
+
+    pub fn reveal_winning_ticket(ctx: Context<RevealWinningTicket>) -> Result<()> {
+        reveal_winning_ticket::handler_reveal_winning_ticket(ctx)
+    }
 }
