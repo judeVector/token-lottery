@@ -64,13 +64,17 @@ describe("token-lottery", () => {
       [wallet.payer],
       { skipPreflight: true }
     );
+    3;
 
     console.log("Buy Ticket signature", signature);
   }
 
   it("Should Initialized Config", async () => {
+    const slot = await provider.connection.getSlot();
+    const endSlot = slot + 20;
+
     const initConfigTx = await program.methods
-      .initializeConfig(new anchor.BN(0), new anchor.BN(1834954927), new anchor.BN(10_000))
+      .initializeConfig(new anchor.BN(slot), new anchor.BN(endSlot), new anchor.BN(10_000))
       .instruction();
 
     const blockhashWithContext = await provider.connection.getLatestBlockhash();
@@ -180,5 +184,56 @@ describe("token-lottery", () => {
     );
 
     console.log("commit signature transaction", commitSignature);
+  });
+
+  it("Should reveal winning ticket", async () => {
+    const slot = await provider.connection.getSlot();
+    const endSlot = slot + 20;
+
+    const queue = new anchor.web3.PublicKey("A43DyUGA7s8eXPxqEjJY6EBu1KKbNgfxF8h17VAHn13w");
+
+    const [randomness, createRandomnessInstruction] = await sb.Randomness.create(
+      switchboardProgram,
+      randomnessKeypair,
+      queue
+    );
+
+    // From Here
+    const sbRevealInstruction = await randomness.revealIx();
+
+    const revealWinnerInstruction = await program.methods
+      .revealWinningTicket()
+      .accounts({
+        randomnessAccount: randomness.pubkey,
+      })
+      .instruction();
+
+    const revealBlockhashWithContext = await provider.connection.getLatestBlockhash();
+
+    const revealTx = new anchor.web3.Transaction({
+      feePayer: provider.wallet.publicKey,
+      blockhash: revealBlockhashWithContext.blockhash,
+      lastValidBlockHeight: revealBlockhashWithContext.lastValidBlockHeight,
+    })
+      .add(sbRevealInstruction)
+      .add(revealWinnerInstruction);
+
+    let currentSlot = 0;
+    while (currentSlot < endSlot) {
+      const slot = await provider.connection.getSlot();
+      if (slot > currentSlot) {
+        currentSlot = slot;
+        console.log("Current slot: " + currentSlot);
+      }
+    }
+
+    const revealSignature = await anchor.web3.sendAndConfirmTransaction(
+      provider.connection,
+      revealTx,
+      [wallet.payer],
+      { skipPreflight: true }
+    );
+
+    console.log("Reveal signature: " + revealSignature);
   });
 });
