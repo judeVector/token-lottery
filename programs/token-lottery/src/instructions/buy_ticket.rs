@@ -9,7 +9,7 @@ use anchor_spl::{
     token_interface::{mint_to, Mint, MintTo, TokenAccount, TokenInterface},
 };
 
-use crate::{CustomError, TokenLottery, NAME, SYMBOL, URI};
+use crate::{accounts, CustomError, TokenLottery, NAME, SYMBOL, URI};
 
 #[derive(Accounts)]
 pub struct BuyTicket<'info> {
