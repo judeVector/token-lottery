@@ -5,7 +5,7 @@ use anchor_lang::prelude::*;
 /// The struct representing the state of the token lottery
 pub struct TokenLottery {
     pub winner: u64,                // The ID of the winning participant
-    pub winner_claimed: bool,       // Indicate whether the prize has been claimed
+    pub winner_chosen: bool,        // Indicate whether the prize has been claimed
     pub start_time: u64,            // Timestamp when the lottery begins
     pub end_time: u64,              // Timestamp when the lottery ends
     pub lottery_pot_amount: u64,    // Total amount of tokens collected for the lottery pot

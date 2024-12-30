@@ -37,7 +37,7 @@ pub fn handler_reveal_winning_ticket(ctx: Context<RevealWinningTicket>) -> Resul
         return Err(CustomError::LotteryNotCompleted.into());
     }
 
-    require!(!token_lottery.winner_claimed, CustomError::WinnerClaimed);
+    require!(!token_lottery.winner_chosen, CustomError::WinnerClaimed);
 
     let randomness_data =
         RandomnessAccountData::parse(ctx.accounts.randomness_account.data.borrow()).unwrap();
@@ -51,7 +51,7 @@ pub fn handler_reveal_winning_ticket(ctx: Context<RevealWinningTicket>) -> Resul
     msg!("Winner chosen: {}", winner);
 
     token_lottery.winner = winner;
-    token_lottery.winner_claimed = true;
+    token_lottery.winner_chosen = true;
 
     Ok(())
 }

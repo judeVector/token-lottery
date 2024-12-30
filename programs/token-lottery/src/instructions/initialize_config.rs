@@ -26,7 +26,7 @@ pub fn handler_initialize_config(
 ) -> Result<()> {
     ctx.accounts.token_lottery.set_inner(TokenLottery {
         winner: 0,
-        winner_claimed: false,
+        winner_chosen: false,
         start_time: start,
         end_time: end,
         lottery_pot_amount: 0,
