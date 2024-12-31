@@ -37,7 +37,7 @@ pub struct BuyTicket<'info> {
         mint::authority = collection_mint,
         mint::freeze_authority = collection_mint,
         mint::token_program = token_program,
-        seeds = [token_lottery.ticket_price.to_le_bytes().as_ref()],
+        seeds = [token_lottery.total_tickets.to_le_bytes().as_ref()],
         bump
     )]
     pub ticket_mint: InterfaceAccount<'info, Mint>,
