@@ -40,4 +40,8 @@ pub mod token_lottery {
     pub fn reveal_winning_ticket(ctx: Context<RevealWinningTicket>) -> Result<()> {
         reveal_winning_ticket::handler_reveal_winning_ticket(ctx)
     }
+
+    pub fn claim_prize(ctx: Context<ClaimPrize>) -> Result<()> {
+        claim_prize::handler_claim_prize(ctx)
+    }
 }
