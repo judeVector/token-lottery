@@ -28,4 +28,12 @@ pub enum CustomError {
     WinnerClaimed,
     #[msg("Randomness not resolved")]
     RandomnessNotResolved,
+    #[msg("Winner not chosen")]
+    WinnerNotChosen,
+    #[msg("Collection is not verified")]
+    NotVerifiedTicket,
+    #[msg("Incorrect ticket")]
+    IncorrectTicket,
+    #[msg("No ticket")]
+    NoTicket,
 }
